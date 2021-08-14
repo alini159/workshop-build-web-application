@@ -95,7 +95,7 @@ export default {
       text-transform: none;
       font-family: 'Arial';
       height: 48px;
-      width: 180px;
+      width: 190px;
     }
     .create-account {
       color: $button-text-secondary-color;

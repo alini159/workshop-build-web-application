@@ -16,8 +16,18 @@ const routes = new Router({
             name: 'home',
             component: () => import('@/views/Home.vue'),
         },
-
+        {    
+            path: '/cadastro',
+            name: 'register',
+            component: () => import('@/views/Register.vue'),
+        },
+        {  
+            path: '/entrar',
+            name: 'login',
+            component: () => import('@/views/Login.vue'),
+        },
     ],
+
 });
 
 export default routes;

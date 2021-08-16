@@ -15,7 +15,9 @@
                     class="pa-4"
                 >
                     <v-card-title class="pa-0 mb-6 text-center">Entrar</v-card-title>
-                    <forms-login/>
+                    <forms-login
+                        @login="loginWithFirebase"
+                    />
                 </v-card> 
             </v-col> 
             <v-col
@@ -33,11 +35,31 @@
 
 <script>
 import FormsLogin from '../components/FormsLogin.vue';
+import firebase from 'firebase';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Login',
   components:{
     FormsLogin
-  }
+  },
+  methods: {
+    ...mapActions(['addUser']),
+    loginWithFirebase(user) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(user.email, user.password)
+        .then(data => {
+          this.addUser({
+              name: data.user.displayName,
+              email: data.user.email, 
+          })
+            this.$router.push({ name:'dashboard' });
+        })
+          .catch(err => {
+          this.error = err.message;
+        });
+    }
+  } 
 };
 </script>

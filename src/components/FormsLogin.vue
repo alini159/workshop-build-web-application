@@ -53,6 +53,17 @@ export default {
             ],
          },
       }
-  }
+  },
+   methods: {
+      validate() {
+        if(this.$refs.form.validate()) {
+            const userLogin = {
+            email: this.email ,
+            password: this.password 
+          }
+          this.$emit('login' , userLogin);
+        }
+      }
+    }
 };
 </script>

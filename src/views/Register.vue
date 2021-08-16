@@ -15,7 +15,9 @@
             class="pa-4"
             >
             <v-card-title class="pa-0 mb-6 text-center">Criar sua conta</v-card-title>
-            <forms-register/>
+            <forms-register
+                 @register= "createFirebaseUser"
+            />
             </v-card> 
         </v-col>  
         <v-col
@@ -31,12 +33,33 @@
   </v-row>
 </template>
 <script>
+
 import FormsRegister from '../components/FormsRegister.vue';
+import firebase from "firebase";
 
 export default {
   name: 'Register',
   components: {
       FormsRegister
+  },
+  methods: {
+    createFirebaseUser(user) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(user.email, user.password)
+        .then(data => {
+          data.user
+            .updateProfile({
+              displayName: user.name
+            })
+              .then(() => {
+              this.$router.push({ name:'login'})
+            });
+        })
+          .catch(err => {
+          this.error = err.message;
+        });
+    }
   }
 };
 </script>

@@ -18,27 +18,27 @@
     ></v-text-field>
     <v-text-field
             v-model="password"
-            :append-icon="show1showpasswors ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
-            :type="showpasswors ? 'text' : 'password'"
-            name="input-10-1"
-            label="Senha"
-            hint="minimo 8 caracteres"
-            counter
-            @click:append="show1showpasswors = !showshowpasswors1"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="showPassword ? 'text' : 'password'"
+              name="input-10-1"
+              label="Senha"
+              hint="Mínimo de 8 caracteres"
+              outlined
+              @click:append="showPassword = !showPassword"
          >
         </v-text-field>
 
         <v-text-field
-            v-model="showpassworsConfirmation"
-            :append-icon="showpassworsConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.passwordMatch]"
-            :type="showpassworsConfirmation ? 'text' : 'password'"
-            name="input-10-1"
-            label="Confirmação de Senha"
-            hint="minimo 8 caracteres"
-            counter
-            @click:append="showpassworsConfirmation = !showpassworsConfirmation"
+            v-model="passwordConfirmation"
+              :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.passwordMatch]"
+              :type="showPasswordConfirmation ? 'text' : 'password'"
+              name="input-10-1"
+              label="Confirmar senha"
+              hint="Mínimo de 8 caracteres"
+              outlined
+              @click:append="showPasswordConfirmation = !showPasswordConfirmation"
          >
         </v-text-field>
          <v-btn
@@ -74,6 +74,19 @@ export default {
             ],
          },
       }
-  }
+  },
+    methods: {
+      validate() {
+        if(this.$refs.form.validate()) {
+         
+          const userRegister = {
+            name: this.name ,
+            email: this.email ,
+            password: this.password ,
+          }
+          this.$emit('register' , userRegister);
+        }
+      }
+    }
 };
 </script>

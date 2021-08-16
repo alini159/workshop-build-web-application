@@ -52,6 +52,7 @@ export default {
         })
         .catch((err) => {
           throw new Error(`Problem handling something: ${err}.`);
+          //tratamento de erro
           // this.error = err.message;
         });
     },

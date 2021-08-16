@@ -10,7 +10,6 @@ const getters = {
 
 const actions = {
   fetchLists({ commit  }) {
-    commit('clearLists');
     Tasks.lists().then((response) => {
       commit('setLists', response);
     });
@@ -20,7 +19,7 @@ const actions = {
 const mutations = {
   setLists($state, payload) {
     const stateCopy = $state;
-    stateCopy.lists = stateCopy.lists.concat(payload);
+    stateCopy.lists = payload;
   },
 };
 

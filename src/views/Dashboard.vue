@@ -9,6 +9,9 @@
         >
           Sincronizar tasks
         </v-btn> 
+        <div>
+        {{ listItems }}
+        </div>
   </div>
 </template>
 
@@ -20,14 +23,27 @@ export default {
   data() {
     return {
       userName: '',
+      listItems:'',
     };
   },
   computed: {
-    ...mapGetters(["currentUser"]),
+  ...mapGetters(['currentUser','getToken','lists']),
     user() {
       return this.currentUser;
-    }
-  },
+      },
+    },
+    watch: {
+      getToken(value){
+        if(value){
+          this.fetchLists();
+        }
+      },
+      lists(value){
+        if(value){
+          this.listItems = value.items;
+        }
+      }
+    },
   mounted() {
     this.userName = this.currentUser.name;
      },

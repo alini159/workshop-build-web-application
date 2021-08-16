@@ -12,7 +12,7 @@ routes.beforeEach((to, from, next) => {
     }else{
         next();
     }
-})
+});
 
 export default routes
  

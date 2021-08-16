@@ -51,7 +51,8 @@ export default {
           this.$router.push({ name: "dashboard" });
         })
         .catch((err) => {
-          this.error = err.message;
+          throw new Error(`Problem handling something: ${err}.`);
+          // this.error = err.message;
         });
     },
   },

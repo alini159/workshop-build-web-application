@@ -1,7 +1,7 @@
 import Tasks from '@/api/resources/tasks';
 
 const state = {
-  lists: null,
+  lists: [],
 };
   
 const getters = {
@@ -9,9 +9,25 @@ const getters = {
 };
 
 const actions = {
-  fetchLists({ commit  }) {
+  fetchLists({ commit, dispatch }) {
+    commit('clearLists');
     Tasks.lists().then((response) => {
-      commit('setLists', response);
+      console.log(response);
+      response.items.forEach ((item) => {
+        dispatch('fetchListsItems', item)
+      })
+    });
+  },
+  fetchListsItems({ commit }, payload){
+    Tasks.listItems(payload.id).then((response) => { 
+      response ['listId'] = payload.id;
+      payload['tasks'] = response;
+      commit('setLists', payload);
+    });
+  },
+  addNewTaskItem({ dispatch }, payload ) {
+    Tasks.insertItem(payload).then(() => {
+      dispatch('fetchLists');
     });
   },
 };
@@ -19,8 +35,12 @@ const actions = {
 const mutations = {
   setLists($state, payload) {
     const stateCopy = $state;
-    stateCopy.lists = payload;
+    stateCopy.lists = stateCopy.lists.concat(payload);
   },
+  clearLists($state){
+    const stateCopy = $state;
+    stateCopy.lists = []; 
+  }
 };
 
 export default {

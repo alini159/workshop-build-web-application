@@ -4,9 +4,7 @@ import App from './App.vue';
 import vuetify from './plugins/vuetify' ;
 import router from './routes' ;
 import store from './stores';
-
 Vue.config.productionTip = false;
-
 new Vue({
   vuetify,
   router,

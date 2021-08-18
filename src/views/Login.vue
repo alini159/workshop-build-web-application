@@ -55,8 +55,22 @@ export default {
           //tratamento de erro
           // this.error = err.message;
         });
+      },
+      loginWithFacebook() {
+          var provider = new firebase.auth.FacebookAuthProvider();
+          firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+              console(result);
+              if (result.credential.accessToken) {
+                this.redirectUser(result);
+              }
+            }).catch((error) => {
+              console.log(error)
+            });
+          }
     },
-  },
 };
 </script>
 <style lang="scss">
